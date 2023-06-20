@@ -135,6 +135,8 @@ public class Servlet5SnippetInjectingResponseWrapper extends HttpServletResponse
     if (snippetInjectingPrintWriter == null) {
       snippetInjectingPrintWriter =
           new SnippetInjectingPrintWriter(super.getWriter(), snippet, this);
+      // setting snippet inject flag, nginx can check this flag and do not inject again
+      addHeader("otel-snippet-inject","true");
     }
     return snippetInjectingPrintWriter;
   }

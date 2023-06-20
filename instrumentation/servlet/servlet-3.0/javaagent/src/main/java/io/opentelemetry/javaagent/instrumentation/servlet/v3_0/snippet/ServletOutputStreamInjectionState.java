@@ -24,6 +24,8 @@ public class ServletOutputStreamInjectionState {
     if (state == null || state.getWrapper() != wrapper) {
       state = new InjectionState(wrapper);
       virtualField.set(servletOutputStream, state);
+      // setting snippet inject flag, nginx can check this flag and do not inject again
+      wrapper.addHeader("otel-snippet-inject","true");
     }
   }
 
